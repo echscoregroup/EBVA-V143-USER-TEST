@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ebva-v1.0.9-v145-test';
+const CACHE_NAME = 'ebva-v1.0.8';
 const APP_SHELL = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', event => {

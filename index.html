@@ -141,7 +141,7 @@ const V145_QA = [
 {id:'Q01',q:'What is an Emergency Medical Condition under ECHS?',a:'A condition where there is a likelihood of loss of life or limb is called Emergency.'},
 {id:'Q02',q:'What is the simplest way to understand whether a condition is an emergency?',a:'Ask whether there is a likelihood of loss of life or loss of limb. If Yes , then you can consider the condition as Emergency.'},
 {id:'Q03',q:'Is head injury , heart attack , stroke , snake bite , dog bite ,animal bite, severe uncontrollable pain are few examples of an emergency medical condition?',a:'Yes'},
-{id:'Q04',q:'What are the hospital options available for a ECHS beneficiary in an emergency?',a:'V145 lists four options: Go to the the nearest Military Hospital or an Empanelled Hospital or a non-Empanelled hospital or a Government Hospital.'},
+{id:'Q04',q:'What are the hospital options available for a ECHS beneficiary in an emergency?',a:'There are four options: Go to the nearest Military Hospital or an Empanelled Hospital or a non-Empanelled hospital or a Government Hospital.'},
 {id:'Q06',q:'Can a dependent beneficiary above 25 years be treated at a Military Hospital in an emergency?',a:'Yes. a dependent above 25 years who is a valid beneficiary may be treated at a Military Hospital. Payment will be required to be made & obtain 100% reimbursement'},
 {id:'Q07',q:'Can I go directly to an Empanelled Hospital in an emergency?',a:'Yes. In an emergency, the patient can go directly to an Empanelled Hospital with the required ECHS card & get cashless treatment.'},
 {id:'Q08',q:"Does the patient's next of kin have to arrange the referral when the patient is admitted to an Empanelled Hospital emergency room?",a:'No. There is no action required from the next of kin for arranging the referral. The Empanelled Hospital initiates the request online with the Polyclinic.'},
@@ -154,10 +154,9 @@ const V145_QA = [
 {id:'Q15',q:'What documents should I collect after discharge if I paid for emergency treatment?',a:'Collect all investigation images and reports such as MRI and CT, laboratory reports, and all itemised bills and supporting documents related to the amount paid.'},
 {id:'Q16',q:'What should I do to submit and follow up an emergency reimbursement claim?',a:'Submit the reimbursement claim promptly with the required original documents, a covering letter and the completed contingent bill. Keep copies, obtain acknowledgement from the billing department, and respond completely to any queries so the claim can be processed.'},
 {id:'Q17',q:'Where do I get medicines prescribed after discharge from an Empanelled Hospital or Military Hospital or Non Empanelled Hospital or Govt Hospital?',a:'Medicines are to be collected from the ECHS Polyclinic.'},
-{id:'Q18',q:'What happens if an emergency patient cannot be shifted from a non-Empanelled hospital?',a:'The patient must become stable and ready for shifting. For any further action'}
 ];
 // ===== V145 APPROVED NATURAL-LANGUAGE TEST QUESTIONS =====
-// Q05 deleted as instructed. Three approved NL variants are retained for each remaining V145 Q&A.
+// Q05 and Q18 deleted as instructed. Three approved NL variants are retained for each remaining V145 Q&A.
 const V145_NL = {
  Q01:['What counts as an emergency under ECHS?','How does ECHS define an emergency medical condition?','When is a medical condition considered an emergency?'],
  Q02:['How can I quickly tell if something is an emergency?','What is the simple test for knowing whether it is an emergency?','How do I know if my condition qualifies as an emergency?'],
@@ -175,7 +174,6 @@ const V145_NL = {
  Q15:['What documents should I keep after paying for emergency treatment?','Which bills and medical reports do I need for reimbursement?','What should I collect from the hospital before I leave?'],
  Q16:['How do I claim reimbursement for emergency treatment?','What should I submit for an emergency reimbursement claim?','How do I follow up my emergency reimbursement?'],
  Q17:['Where can I get my medicines after discharge?','Do I get post-discharge medicines from the hospital or ECHS Polyclinic?','Where should I collect medicines prescribed after emergency treatment?'],
- Q18:['What happens if an emergency patient cannot be shifted from a non-Empanelled hospital?','What if I am not stable enough to be shifted from a non-Empanelled hospital?','What should happen when an emergency patient cannot yet be transferred?']
 };
 function v145Norm(s){return String(s||'').toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\bempanel+ed\b/g,'empanelled').replace(/\bpolyclinics?\b/g,'polyclinic').replace(/\s+/g,' ').trim();}
 function v145Answer(q){
@@ -200,10 +198,9 @@ function v145Answer(q){
  [/^what is an emergency information report$/,'Q14'],
  [/^what documents should i collect after discharge if i paid for emergency treatment$/,'Q15'],
  [/^what should i do to submit and follow up an emergency reimbursement claim$/,'Q16'],
- [/^where do i get medicines prescribed after discharge from an empanelled hospital or military hospital or non empanelled hospital or govt hospital$/,'Q17'],
- [/^what happens if an emergency patient cannot be shifted from a non empanelled hospital$/,'Q18']
+ [/^where do i get medicines prescribed after discharge from an empanelled hospital or military hospital or non empanelled hospital or govt hospital$/,'Q17']
  ];
- for(const [rx,id] of forced){if(rx.test(x)){const item=V145_QA.find(z=>z.id===id);return item?item.a:null;}}
+ for(const [rx,id] of forced){if(rx.test(x)){const item=V145_QA.find(z=>z.id===id); if(item) return item.a;}}
  // Strong emergency-specific matching for the remaining V145 core questions.
  if(!/\bemergency\b/.test(x)) return null;
  let best=null,score=0;
